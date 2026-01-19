@@ -169,9 +169,3 @@ Policy Engine n’est pas :
 C’est un **outil d’ingénierie de sécurité**, conçu pour relier architecture, politiques et implémentation de manière cohérente et vérifiable.
 
 ---
-
-## 🧩 Prochaines étapes possibles
-
-- Ajouter une section *Décisions d’architecture*
-- Créer une version *pitch décideur / jury*
-- Adapter le contenu pour un *portfolio ou CV*
