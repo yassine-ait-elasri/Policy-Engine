@@ -75,7 +75,7 @@ Described infrastructure
 ### Conceptual View
 ```
 
-```
+
       ┌─────────────┐
       │  Terraform  │──┐
       │   or YAML   │  │
@@ -106,8 +106,6 @@ Described infrastructure
                └──────────────┘
                        ▼
               ✅ Code + Report
-```
-
 ```
 
 ---
@@ -175,5 +173,3 @@ Policy Engine is not:
 It is a **security engineering tool**, designed to connect architecture, policies, and implementation in a coherent and verifiable way.
 
 ---
-* produce a **short GitHub description (≤350 chars)**,
-* or align this README with the longer architecture docs you wrote earlier.
