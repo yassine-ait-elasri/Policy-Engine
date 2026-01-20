@@ -1,171 +1,179 @@
 # Policy Engine
 
-**Générer automatiquement des politiques de sécurité et du code d’infrastructure  
-à partir d’une description d’architecture.**
+**Automatically generate security policies and infrastructure code  
+from an architecture description.**
 
-Les infrastructures évoluent en permanence.  
-Les standards de sécurité sont publiés sous forme de documents statiques.
+Infrastructure evolves constantly.  
+Security standards are published as static documents.
 
-Entre les deux, les organisations s’appuient encore largement sur :
-- du travail manuel,
-- du copier-coller fragile,
-- des interprétations humaines variables,
-- et des politiques souvent obsolètes avant même leur validation.
+Between the two, organizations still rely heavily on:
+- manual work,
+- fragile copy-paste,
+- variable human interpretation,
+- and policies that are often outdated before they are even approved.
 
-**Policy Engine comble cet écart par de l’ingénierie, pas par des approches opaques.**
-
----
-
-## 🎯 Objectif du projet
-
-Policy Engine est un moteur d’automatisation de politiques de sécurité.
-
-Son objectif est de transformer une description d’infrastructure réelle en :
-- un ensemble de contrôles de sécurité applicables,
-- une implémentation technique cohérente,
-- une documentation claire et traçable.
-
-Le projet vise à relier explicitement :  
-**architecture → contrôles → implémentation**.
+**Policy Engine bridges this gap through engineering, not opaque approaches.**
 
 ---
 
-## 🧭 Exemple conceptuel
+## 🎯 Project Objective
 
-### Situation initiale
-Une infrastructure contient des composants exposés publiquement, sans chiffrement ni journalisation suffisante.
+Policy Engine is a security policy automation engine.
 
-### Ce que fait le moteur
-- Analyse la description de l’infrastructure
-- Identifie les composants critiques
-- Détecte les écarts de sécurité
-- Sélectionne les contrôles applicables
-- Génère un socle de sécurité cohérent
-- Produit un rapport explicatif
+Its goal is to transform a real infrastructure description into:
+- a set of applicable security controls,
+- a coherent technical implementation,
+- clear and traceable documentation.
 
-### Résultat attendu
-- Accès public supprimé
-- Chiffrement activé
-- Journalisation configurée
-- Alignement explicite avec des standards reconnus
+The project explicitly aims to connect:  
+**architecture → controls → implementation**.
 
 ---
 
-## 🔍 Pourquoi ce projet est pertinent
+## 🧭 Conceptual Example
 
-- La valeur est compréhensible en quelques secondes
-- Les décisions sont explicables et traçables
-- Le résultat est directement exploitable
-- Le lien entre conformité et implémentation est explicite
-- Le projet démontre un raisonnement d’ingénierie
+### Initial Situation
+An infrastructure contains publicly exposed components, without sufficient encryption or logging.
+
+### What the Engine Does
+- Analyzes the infrastructure description
+- Identifies critical components
+- Detects security gaps
+- Selects applicable controls
+- Generates a coherent security baseline
+- Produces an explanatory report
+
+### Expected Result
+- Public access removed
+- Encryption enabled
+- Logging configured
+- Explicit alignment with recognized standards
 
 ---
 
-## 🔄 Logique de fonctionnement
+## 🔍 Why This Project Is Relevant
 
-### Vue synthétique
-Infrastructure décrite  
-→ Analyse  
-→ Modèle interne normalisé  
-→ Sélection des contrôles  
-→ Génération du socle de sécurité  
+- The value is understandable in a few seconds
+- Decisions are explainable and traceable
+- The output is directly usable
+- The link between compliance and implementation is explicit
+- The project demonstrates an engineering-driven approach
+
+---
+
+## 🔄 Operating Logic
+
+### High-Level View
+Described infrastructure  
+→ Analysis  
+→ Normalized internal model  
+→ Control selection  
+→ Security baseline generation  
 → Validation  
-→ Résultat final
+→ Final result
 
-### Vue conceptuelle
-          ┌─────────────┐
-          │  Terraform  │──┐
-          │   ou YAML   │  │
-          └─────────────┘  │
-                           ▼
-                   ┌──────────────┐
-                   │   Parser     │
-                   └──────────────┘
-                           ▼
-                   ┌──────────────┐
-                   │ Modèle       │  ← Schéma normalisé
-                   │ Interne      │     (types, relations)
-                   └──────────────┘
-                           ▼
-                   ┌──────────────┐
-                   │  Mapping     │  ← Requête base de 
-                   │  Engine      │     contrôles (PostgreSQL)
-                   └──────────────┘
-                           ▼
-                   ┌──────────────┐
-                   │ Générateur   │  ← Templates Terraform
-                   │ Terraform    │     + validation
-                   └──────────────┘
-                           ▼
-                   ┌──────────────┐
-                   │ Validation   │  ← terraform validate
-                   │              │     + checkov
-                   └──────────────┘
-                           ▼
-                  ✅ Code + Rapport
+### Conceptual View
+```
 
----
+```
+      ┌─────────────┐
+      │  Terraform  │──┐
+      │   or YAML   │  │
+      └─────────────┘  │
+                       ▼
+               ┌──────────────┐
+               │   Parser     │
+               └──────────────┘
+                       ▼
+               ┌──────────────┐
+               │ Internal     │  ← Normalized schema
+               │ Model        │     (types, relations)
+               └──────────────┘
+                       ▼
+               ┌──────────────┐
+               │  Mapping     │  ← Control database
+               │  Engine      │     queries (PostgreSQL)
+               └──────────────┘
+                       ▼
+               ┌──────────────┐
+               │ Terraform    │  ← Terraform templates
+               │ Generator    │     + validation
+               └──────────────┘
+                       ▼
+               ┌──────────────┐
+               │ Validation   │  ← terraform validate
+               │              │     + checkov
+               └──────────────┘
+                       ▼
+              ✅ Code + Report
+```
 
-## 🧠 Principes d’ingénierie
-
-- **Séparation des responsabilités**  
-  Comprendre, décider et générer sont des étapes distinctes.
-
-- **Déterminisme**  
-  Les décisions reposent sur des règles explicites.
-
-- **Traçabilité**  
-  Chaque contrôle est justifié et documenté.
-
-- **Prudence opérationnelle**  
-  Aucun changement direct sur l’infrastructure existante.
-
-- **Lisibilité**  
-  Les sorties sont compréhensibles par des humains.
+```
 
 ---
 
-## 📦 Portée actuelle — Phase 1
+## 🧠 Engineering Principles
 
-La phase actuelle se concentre sur :
-- un périmètre fonctionnel volontairement restreint,
-- un nombre limité de contrôles,
-- une validation technique stricte,
-- une démonstration claire de valeur.
+- **Separation of responsibilities**  
+  Understanding, deciding, and generating are distinct steps.
 
-L’objectif n’est pas l’exhaustivité, mais la fiabilité.
+- **Determinism**  
+  Decisions rely on explicit rules.
 
----
+- **Traceability**  
+  Each control is justified and documented.
 
-## ⚠️ Limites assumées
+- **Operational caution**  
+  No direct changes to existing infrastructure.
 
-- Certaines informations peuvent être incomplètes
-- Certains contrôles nécessitent une validation humaine
-- La conformité est un processus continu
-
-Ces limites sont connues et assumées.
+- **Readability**  
+  Outputs are understandable by humans.
 
 ---
 
-## 🚀 Évolution prévue
+## 📦 Current Scope — Phase 1
+
+The current phase focuses on:
+- a deliberately restricted functional scope,
+- a limited number of controls,
+- strict technical validation,
+- a clear demonstration of value.
+
+The goal is not exhaustiveness, but reliability.
+
+---
+
+## ⚠️ Acknowledged Limitations
+
+- Some information may be incomplete
+- Some controls require human validation
+- Compliance is a continuous process
+
+These limitations are known and accepted.
+
+---
+
+## 🚀 Planned Evolution
 
 - **Phase 2**  
-  Interface web, rapports de conformité lisibles, accessibilité non technique.
+  Web interface, readable compliance reports, non-technical accessibility.
 
 - **Phase 3**  
-  Déploiement contrôlé, validation humaine, journal d’audit complet.
+  Controlled deployment, human validation, complete audit logging.
 
-Chaque phase repose sur la solidité de la précédente.
-
----
-
-## 🎯 Positionnement
-
-Policy Engine n’est pas :
-- un scanner passif,
-- un outil de conformité marketing,
-- un moteur de déploiement aveugle.
-
-C’est un **outil d’ingénierie de sécurité**, conçu pour relier architecture, politiques et implémentation de manière cohérente et vérifiable.
+Each phase builds on the solidity of the previous one.
 
 ---
+
+## 🎯 Positioning
+
+Policy Engine is not:
+- a passive scanner,
+- a marketing compliance tool,
+- a blind deployment engine.
+
+It is a **security engineering tool**, designed to connect architecture, policies, and implementation in a coherent and verifiable way.
+
+---
+* produce a **short GitHub description (≤350 chars)**,
+* or align this README with the longer architecture docs you wrote earlier.
